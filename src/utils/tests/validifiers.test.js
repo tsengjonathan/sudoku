@@ -1,6 +1,33 @@
 import _ from 'lodash';
 
-import { validSudokuArray } from '../validifiers';
+import { validSudokuMatrix, validSudokuArray } from '../validifiers';
+
+const generateEmptySudokuRow = () => _.times(9, _.constant(0));
+
+describe('validSudokuMatrix', () => {
+  test('rejects an empty array', () => {
+    expect(validSudokuMatrix([])).toBe(false);
+  });
+
+  test('rejects invalid object types', () => {
+    expect(validSudokuMatrix(0)).toBe(false);
+    expect(validSudokuMatrix(null)).toBe(false);
+    expect(validSudokuMatrix(undefined)).toBe(false);
+  });
+
+  test('rejects invalid matrix variations', () => {
+    const emptySudokuRow = _.times(9, _.constant(0));
+    const emptySudokuMatrix = _.times(9, generateEmptySudokuRow);
+    emptySudokuMatrix[_.random(0, 8)].shift();
+    expect(validSudokuMatrix(emptySudokuRow)).toBe(false);
+    expect(validSudokuMatrix(emptySudokuMatrix)).toBe(false);
+  });
+
+  test('accepts valid matrices', () => {
+    const emptySudokuMatrix = _.times(9, generateEmptySudokuRow);
+    expect(validSudokuMatrix(emptySudokuMatrix)).toBe(true);
+  });
+});
 
 describe('validSudokuArray', () => {
   test('rejects an empty array', () => {
