@@ -1,7 +1,7 @@
+import { validSudokuMatrix } from './validifiers';
+
 function rowsToColumns(sudoku) {
-  if (!Object.prototype.hasOwnProperty.call(sudoku, 'length')) {
-    throw Error(`rowsToColumns expected an Array - received ${typeof sudoku} instead`);
-  } else if (sudoku.length !== 9 || sudoku[0].length !== 9) {
+  if (!validSudokuMatrix(sudoku)) {
     const columns = sudoku[0] ? sudoku[0].length : undefined;
     throw Error(`rowsToColumns expected a 9x9 Array - received ${sudoku.length}x${columns} array instead`);
   }
