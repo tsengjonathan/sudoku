@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import { validSudokuArray } from '../validSudoku';
+import { validSudokuArray } from '../validifiers';
 
 describe('validSudokuArray', () => {
   test('rejects an empty array', () => {
