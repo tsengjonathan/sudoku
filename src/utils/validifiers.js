@@ -5,6 +5,7 @@ import _ from 'lodash';
  * A Sudoku matrix is one that resembles a 9x9 matrix -
  * meaning that the set has 9 subarrays in total,
  * and each subarray has 9 number elements.
+ *
  * @param {*} set arbitrary input to check
  * @returns {boolean} whether the input is a valid sudoku matrix
  */
@@ -18,6 +19,7 @@ function validSudokuMatrix(set) {
  * Checks if the given array is a valid Sudoku array.
  * A valid Sudoku array is defined as an array with non-repeating values, 1 to 9 inclusive
  * Used to check if a given row/column/square of sudoku numbers are valid
+ *
  * @param {*} set arbitrary input to check for a valid sudoku array
  * @returns {boolean} whether the input is a valid sudoku array or not
  */
