@@ -22,7 +22,9 @@ jobs:
       run: npm ci
     - name: Run tests and lint code
       run: |
-        npm test --ci
+        npm test
         npm run lint --if-present
+      env:
+        CI: true
     - name: Deploy to Github Pages
       run: npm run deploy
