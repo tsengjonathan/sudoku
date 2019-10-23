@@ -21,6 +21,7 @@ module.exports = {
   plugins: [
     'react',
     'jest',
+    'jsdoc',
   ],
   rules: {
   },
