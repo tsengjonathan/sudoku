@@ -24,6 +24,9 @@ jobs:
       env:
         CI: true
     - name: Deploy to Github Pages
-      run: npm run deploy
+      run: |
+        git config --global user.email ${{ GITHUB_ACTOR }}@users.noreply.github.com
+        git config --global user.name ${{ GITHUB_ACTOR }}
+        npm run deploy
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
