@@ -24,10 +24,4 @@ jobs:
       env:
         CI: true
     - name: Deploy to Github Pages
-      run: |
-        git config --global user.email ${{ github.actor }}@users.noreply.github.com
-        git config --global user.name ${{ github.actor }}
-        git remote add origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.actor }}/sudoku.git
-        npm run deploy
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: node_modules/gh-pages/bin/gh-pages.js -d build -r https://x-access-token:${{secrets.ACCESS_TOKEN}}@github.com/${{github.repository}}.git
