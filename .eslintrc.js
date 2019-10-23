@@ -6,6 +6,7 @@ module.exports = {
   },
   extends: [
     'airbnb',
+    'plugin:jsdoc/recommended',
   ],
   globals: {
     Atomics: 'readonly',
