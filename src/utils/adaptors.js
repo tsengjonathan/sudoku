@@ -44,7 +44,6 @@ function rowsToBlocks(sudoku) {
       const block = [];
       rowBlock.forEach((row) => {
         colBlock.forEach((col) => {
-          // console.log(row, col);
           block.push(sudoku[row][col]);
         });
       });

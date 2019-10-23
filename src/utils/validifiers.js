@@ -32,8 +32,6 @@ function validSudokuArray(set) {
   return _.xor(set, validNumbers).length === 0;
 }
 
-export default validSudokuArray;
-
 export {
   validSudokuMatrix,
   validSudokuArray,
