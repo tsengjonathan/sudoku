@@ -23,6 +23,8 @@ jobs:
         npm run lint --if-present
       env:
         CI: true
+    - name: Build project
+      run: npm run build
     - name: Deploy to Github Pages
       uses: peaceiris/actions-gh-pages@v2.5.0
       env:
