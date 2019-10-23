@@ -1,5 +1,13 @@
+import _ from 'lodash';
+
 import { validSudokuMatrix } from './validifiers';
 
+/**
+ * Converts a row-based Sudoku to a column-based one.
+ *
+ * @param {Array.<Array.<number>>} sudoku row-based sudoku
+ * @returns {Array.<Array.<number>>} column-based representation of the given sudoku
+ */
 function rowsToColumns(sudoku) {
   if (!validSudokuMatrix(sudoku)) {
     const columns = sudoku[0] ? sudoku[0].length : undefined;
@@ -17,8 +25,36 @@ function rowsToColumns(sudoku) {
   return result;
 }
 
-export default rowsToColumns;
+/**
+ * Converts a row-based Sudoku to a block-based one.
+ *
+ * @param {Array.<Array.<number>>} sudoku row-based sudoku
+ * @returns {Array.<Array.<number>>} block-based representation of the given sudoku
+ */
+function rowsToBlocks(sudoku) {
+  if (!validSudokuMatrix(sudoku)) {
+    const columns = sudoku[0] ? sudoku[0].length : undefined;
+    throw Error(`rowsToBlocks expected a 9x9 Array - received ${sudoku.length}x${columns} array instead`);
+  }
+
+  const blocks = [];
+  const indexBlocks = _.chunk(_.range(9), 3);
+  indexBlocks.forEach((rowBlock) => {
+    indexBlocks.forEach((colBlock) => {
+      const block = [];
+      rowBlock.forEach((row) => {
+        colBlock.forEach((col) => {
+          // console.log(row, col);
+          block.push(sudoku[row][col]);
+        });
+      });
+      blocks.push(block);
+    });
+  });
+  return blocks;
+}
 
 export {
   rowsToColumns,
+  rowsToBlocks,
 };
