@@ -24,4 +24,8 @@ jobs:
       env:
         CI: true
     - name: Deploy to Github Pages
-      run: node_modules/gh-pages/bin/gh-pages.js -d build -r https://x-access-token:${{secrets.ACCESS_TOKEN}}@github.com/${{github.repository}}.git
+      uses: peaceiris/actions-gh-pages@v2.5.0
+      env:
+        PERSONAL_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        PUBLISH_BRANCH: gh-pages
+        PUBLISH_DIR: ./out
