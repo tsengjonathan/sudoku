@@ -4,7 +4,7 @@ import './App.css';
 /**
  * Parent wrapper for all React code
  *
- * @returns {object} App
+ * @returns {React.ReactElement} App
  */
 function App() {
   return (
