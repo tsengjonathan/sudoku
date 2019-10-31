@@ -21,7 +21,7 @@ function NumberSelector({ onChange, filledValues }) {
         name="group"
         key={option}
         label={option}
-        value={option}
+        value={option.toString()}
         disabled={filteredValues.includes(option)}
         onChange={(e) => onChange(e.target)}
       />
