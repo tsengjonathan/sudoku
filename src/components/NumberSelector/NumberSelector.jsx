@@ -10,10 +10,11 @@ import { Radio, Pane } from 'evergreen-ui';
  * @returns {React.ReactElement} NumberSelector component
  */
 function NumberSelector({ onChange, filledValues }) {
-  // Storybook knobs only allow string arrays
-  const filteredValues = filledValues.map((value) => (
+  const toNumber = (value) => (
     typeof value === 'string' ? parseInt(value, 10) : value
-  ));
+  );
+  // Storybook knobs only allow string arrays
+  const filteredValues = filledValues.map(toNumber);
 
   const radioOptions = _.range(1, 10)
     .map((option) => (
@@ -23,7 +24,7 @@ function NumberSelector({ onChange, filledValues }) {
         label={option}
         value={option.toString()}
         disabled={filteredValues.includes(option)}
-        onChange={(e) => onChange(e.target)}
+        onChange={(e) => onChange(toNumber(e.target.value))}
       />
     ));
 
