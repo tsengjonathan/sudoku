@@ -8,7 +8,7 @@ function SudokuCell({ value }) {
   if (typeof value !== 'number') {
     console.error(`Invalid type passed to SudokuCell: expected number, got ${typeof value}`);
   }
-  const display = value <= 9 && value >= 1 ? value : null;
+  const display = value <= 9 && value >= 1 ? value : 0;
 
   return (
     <Pane

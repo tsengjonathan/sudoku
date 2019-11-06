@@ -8,7 +8,7 @@ import SudokuCell from './SudokuCell';
  *
  */
 function Sudoku() {
-  const generateRow = () => _.times(9, () => _.random(0, 9));
+  const generateRow = () => _.times(9, _.constant(0));
   const [sudoku, setSudoku] = useState([]);
 
   useEffect(() => {
