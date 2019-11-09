@@ -4,7 +4,7 @@ import { Pane, Code, majorScale } from 'evergreen-ui';
 
 import './sudoku.css';
 
-function SudokuCell({ value }) {
+function SudokuCell({ value, onClick }) {
   if (typeof value !== 'number') {
     console.error(`Invalid type passed to SudokuCell: expected number, got ${typeof value}`);
   }
@@ -19,6 +19,7 @@ function SudokuCell({ value }) {
       display="flex"
       alignItems="center"
       justifyContent="center"
+      onClick={onClick}
     >
       <Code appearance="minimal" className="noselect">{display}</Code>
     </Pane>
@@ -27,6 +28,7 @@ function SudokuCell({ value }) {
 
 SudokuCell.propTypes = {
   value: PropTypes.number.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default SudokuCell;
