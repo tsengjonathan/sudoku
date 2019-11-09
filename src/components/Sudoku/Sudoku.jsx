@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { Pane, majorScale } from 'evergreen-ui';
 
@@ -7,7 +8,9 @@ import SudokuCell from './SudokuCell';
 const generateRow = () => _.times(9, _.constant(0));
 
 /**
+ * Sudoku component containing all of the Sudoku logic
  *
+ * @returns {React.ReactElement} Sudoku
  */
 function Sudoku({ numberSelected }) {
   const [sudoku, setSudoku] = useState([]);
@@ -43,5 +46,8 @@ function Sudoku({ numberSelected }) {
   );
 }
 
+Sudoku.propTypes = {
+  numberSelected: PropTypes.number.isRequired,
+};
 
 export default Sudoku;

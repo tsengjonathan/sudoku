@@ -4,6 +4,11 @@ import { Pane, Code, majorScale } from 'evergreen-ui';
 
 import './sudoku.css';
 
+/**
+ * Individual Sudoku cell that makes up the Sudoku
+ *
+ * @returns {React.ReactElement} SudokuCell
+ */
 function SudokuCell({ value, onClick }) {
   if (typeof value !== 'number') {
     console.error(`Invalid type passed to SudokuCell: expected number, got ${typeof value}`);

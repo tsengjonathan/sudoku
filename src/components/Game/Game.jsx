@@ -4,6 +4,11 @@ import React, { useState } from 'react';
 import Sudoku from '../Sudoku';
 import NumberSelector from '../NumberSelector';
 
+/**
+ * Game component containing the Sudoku and the NumberSelector
+ *
+ * @returns {React.ReactElement} Game
+ */
 function Game() {
   const [numberSelected, setNumberSelected] = useState(0);
 
