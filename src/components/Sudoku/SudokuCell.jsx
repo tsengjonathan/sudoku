@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Pane, Code, majorScale } from 'evergreen-ui';
+import {
+  Pane, Code, majorScale, toaster,
+} from 'evergreen-ui';
 
 import './sudoku.css';
 
@@ -11,7 +13,7 @@ import './sudoku.css';
  */
 function SudokuCell({ value, onClick }) {
   if (typeof value !== 'number') {
-    console.error(`Invalid type passed to SudokuCell: expected number, got ${typeof value}`);
+    toaster.warning(`Invalid type passed to SudokuCell: expected number, got ${typeof value}`);
   }
   const display = value <= 9 && value >= 1 ? value : 0;
 
