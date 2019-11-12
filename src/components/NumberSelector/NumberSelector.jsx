@@ -4,15 +4,25 @@ import _ from 'lodash';
 import { Radio, Pane } from 'evergreen-ui';
 
 /**
+ * Converts a cell value to a number, since the cell value can be a string or a number.
+ *
+ * @param {number|string} value cell value to be converted
+ * @returns {number} corresponding number for the given value
+ */
+function toNumber(value) {
+  return typeof value === 'string' ? parseInt(value, 10) : value;
+}
+
+/**
  * Select which number to input into the Sudoku grid.
  *
  * @param {Function} onChange handle triggers when user selects a different number
  * @returns {React.ReactElement} NumberSelector component
  */
-function NumberSelector({ onChange, filledValues }) {
-  const toNumber = (value) => (
-    typeof value === 'string' ? parseInt(value, 10) : value
-  );
+function NumberSelector({ onChange, filledValues, ...props }) {
+  const {
+    margin, marginTop, marginRight, marginBottom, marginLeft,
+  } = props;
   // Storybook knobs only allow string arrays
   const filteredValues = filledValues.map(toNumber);
 
@@ -29,7 +39,13 @@ function NumberSelector({ onChange, filledValues }) {
     ));
 
   return (
-    <Pane>
+    <Pane
+      margin={margin}
+      marginTop={marginTop}
+      marginRight={marginRight}
+      marginBottom={marginBottom}
+      marginLeft={marginLeft}
+    >
       {radioOptions}
     </Pane>
   );
@@ -41,10 +57,20 @@ NumberSelector.propTypes = {
     PropTypes.arrayOf(PropTypes.number),
     PropTypes.arrayOf(PropTypes.string),
   ]),
+  margin: PropTypes.number,
+  marginTop: PropTypes.number,
+  marginRight: PropTypes.number,
+  marginBottom: PropTypes.number,
+  marginLeft: PropTypes.number,
 };
 
 NumberSelector.defaultProps = {
   filledValues: [],
+  margin: undefined,
+  marginTop: undefined,
+  marginRight: undefined,
+  marginBottom: undefined,
+  marginLeft: undefined,
 };
 
 export default NumberSelector;

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
+import { Pane, majorScale } from 'evergreen-ui';
 
 import Sudoku from '../Sudoku';
 import NumberSelector from '../NumberSelector';
@@ -13,10 +14,10 @@ function Game() {
   const [numberSelected, setNumberSelected] = useState(0);
 
   return (
-    <>
+    <Pane display="flex">
       <Sudoku numberSelected={numberSelected} />
-      <NumberSelector onChange={setNumberSelected} />
-    </>
+      <NumberSelector onChange={setNumberSelected} marginLeft={majorScale(1)} />
+    </Pane>
   );
 }
 
