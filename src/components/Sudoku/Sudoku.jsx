@@ -38,6 +38,8 @@ function Sudoku({ numberSelected }) {
         sudoku.map((row, rowIdx) => row.map((cell, colIdx) => (
           <SudokuCell
             value={cell}
+            rowIdx={rowIdx}
+            colIdx={colIdx}
             onClick={() => setCell(rowIdx, colIdx, numberSelected)}
           />
         )))

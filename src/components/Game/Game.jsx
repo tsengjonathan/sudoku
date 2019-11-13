@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import PropTypes from 'prop-types';
 import { Pane, majorScale } from 'evergreen-ui';
 
 import Sudoku from '../Sudoku';
