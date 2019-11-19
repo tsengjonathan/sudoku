@@ -66,9 +66,26 @@ function getBlockFromIndex(rowIdx, colIdx, sudoku) {
   return block;
 }
 
+/**
+ * Returns the row, column, and block where the specified cell is located.
+ *
+ * @param {number} rowIdx zero-based row index of the cell
+ * @param {number} colIdx zero-based column index of the cell
+ * @param {Array.<Array.<number>>} sudoku row representation of the sudoku
+ * @returns {Array.<number>} concatenated array of the cell's stakeholders
+ */
+function getStakeholdersFromIndex(rowIdx, colIdx, sudoku) {
+  const row = getRowFromIndex(rowIdx, colIdx, sudoku);
+  const column = getColumnFromIndex(rowIdx, colIdx, sudoku);
+  const block = getBlockFromIndex(rowIdx, colIdx, sudoku);
+
+  return row.concat(column).concat(block);
+}
+
 
 export {
   getRowFromIndex,
   getColumnFromIndex,
   getBlockFromIndex,
+  getStakeholdersFromIndex,
 };

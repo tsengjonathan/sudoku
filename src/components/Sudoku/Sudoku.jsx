@@ -1,11 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 import { Pane, majorScale } from 'evergreen-ui';
 
 import SudokuCell from './SudokuCell';
+import bruteForce from '../../solvers/bruteForce';
 
-const generateRow = () => _.times(9, _.constant(0));
+const templateSudoku = [
+  [1, 0, 0, 7, 0, 9, 0, 0, 0],
+  [5, 8, 0, 0, 0, 0, 0, 3, 0],
+  [7, 0, 6, 0, 0, 0, 0, 1, 9],
+  [0, 7, 0, 0, 0, 3, 0, 0, 8],
+  [9, 0, 1, 0, 0, 0, 0, 0, 2],
+  [6, 0, 8, 5, 0, 0, 0, 0, 7],
+  [0, 0, 7, 0, 3, 0, 0, 0, 0],
+  [0, 0, 0, 9, 0, 0, 4, 0, 3],
+  [0, 0, 4, 0, 7, 6, 8, 5, 0],
+];
 
 /**
  * Sudoku component containing all of the Sudoku logic
@@ -14,9 +24,12 @@ const generateRow = () => _.times(9, _.constant(0));
  */
 function Sudoku({ numberSelected }) {
   const [sudoku, setSudoku] = useState([]);
+  const [solvedSudoku, setSolvedSudoku] = useState([]);
 
   useEffect(() => {
-    setSudoku(_.times(9, generateRow));
+    setSudoku(templateSudoku);
+    setSolvedSudoku(bruteForce(templateSudoku));
+    console.debug('Solved sudoku', solvedSudoku);
   }, []);
 
   /**
@@ -29,8 +42,6 @@ function Sudoku({ numberSelected }) {
     newSudoku[rowIdx][colIdx] = val;
     setSudoku(newSudoku);
   }
-
-  // console.log('Sudoku in Rows', sudoku);
 
   return (
     <Pane display="inline-flex" flexWrap="wrap" width={majorScale(4) * 9}>
