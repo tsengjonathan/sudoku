@@ -1,4 +1,4 @@
-import { rowsToColumns, rowsToBlocks } from '../adaptors';
+import { rowsToColumns, rowsToBlocks } from '../utils/adaptors';
 
 const sudoku = {
   rows: [
