@@ -32,7 +32,23 @@ function validSudokuArray(set) {
   return _.xor(set, validNumbers).length === 0;
 }
 
+/**
+ * Checks if a given Sudoku is solved.
+ * A solved Sudoku is one that has no empty values.
+ *
+ * @param {Array.<Array.<number>>} sudoku row representation of the sudoku
+ * @returns {boolean} true is the sudoku is solved, false otherwise
+ */
+function isSolved(sudoku) {
+  if (!validSudokuMatrix(sudoku)) {
+    return false;
+  }
+
+  return sudoku.every((row) => row.every((cell) => cell !== 0));
+}
+
 export {
   validSudokuMatrix,
   validSudokuArray,
+  isSolved,
 };
