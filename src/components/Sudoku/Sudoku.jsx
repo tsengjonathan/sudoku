@@ -29,7 +29,7 @@ function Sudoku({ numberSelected }) {
   useEffect(() => {
     setSudoku(templateSudoku);
     setSolvedSudoku(bruteForce(templateSudoku));
-    console.debug('Solved sudoku', solvedSudoku);
+    console.debug('Solved sudoku', bruteForce(templateSudoku));
   }, []);
 
   /**
