@@ -29,8 +29,11 @@ function Sudoku({ numberSelected }) {
   useEffect(() => {
     setSudoku(templateSudoku);
     setSolvedSudoku(bruteForce(templateSudoku));
-    console.debug('Solved sudoku', bruteForce(templateSudoku));
   }, []);
+
+  useEffect(() => {
+    console.debug('Solved sudoku', solvedSudoku);
+  }, [solvedSudoku]);
 
   /**
    * @param {number} rowIdx row index of the sudoku cell to change
