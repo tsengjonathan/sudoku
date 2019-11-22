@@ -4,18 +4,9 @@ import { Pane, majorScale } from 'evergreen-ui';
 
 import SudokuCell from './SudokuCell';
 import bruteForce from '../../solvers/bruteForce';
+import exampleSudoku from '../../puzzles/11-03-2019';
 
-const templateSudoku = [
-  [1, 0, 0, 7, 0, 9, 0, 0, 0],
-  [5, 8, 0, 0, 0, 0, 0, 3, 0],
-  [7, 0, 6, 0, 0, 0, 0, 1, 9],
-  [0, 7, 0, 0, 0, 3, 0, 0, 8],
-  [9, 0, 1, 0, 0, 0, 0, 0, 2],
-  [6, 0, 8, 5, 0, 0, 0, 0, 7],
-  [0, 0, 7, 0, 3, 0, 0, 0, 0],
-  [0, 0, 0, 9, 0, 0, 4, 0, 3],
-  [0, 0, 4, 0, 7, 6, 8, 5, 0],
-];
+const templateSudoku = exampleSudoku.rows;
 
 /**
  * Sudoku component containing all of the Sudoku logic
@@ -28,7 +19,7 @@ function Sudoku({ numberSelected }) {
 
   useEffect(() => {
     setSudoku(templateSudoku);
-    setSolvedSudoku(bruteForce(templateSudoku));
+    setSolvedSudoku(bruteForce(templateSudoku, true));
   }, []);
 
   useEffect(() => {
