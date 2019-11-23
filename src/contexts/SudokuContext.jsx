@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from 'react';
+import React, { createContext, useReducer, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { empty, random } from '../puzzles';
@@ -38,9 +38,13 @@ const SudokuContext = createContext();
  */
 function SudokuContextProvider({ children }) {
   const [sudoku, action] = useReducer(reducer, random());
+  const [numberSelected, setNumberSelected] = useState(0);
 
   return (
-    <SudokuContext.Provider value={{ sudoku, action }}>
+    <SudokuContext.Provider value={{
+      sudoku, action, numberSelected, setNumberSelected,
+    }}
+    >
       { children }
     </SudokuContext.Provider>
   );

@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { Radio, Pane } from 'evergreen-ui';
+
+import { SudokuContext } from '../../contexts/SudokuContext';
 
 /**
  * Converts a cell value to a number, since the cell value can be a string or a number.
@@ -26,6 +28,8 @@ function NumberSelector({ onChange, filledValues, ...props }) {
   // Storybook knobs only allow string arrays
   const filteredValues = filledValues.map(toNumber);
 
+  const { setNumberSelected } = useContext(SudokuContext);
+
   const radioOptions = _.range(1, 10)
     .map((option) => (
       <Radio
@@ -34,7 +38,7 @@ function NumberSelector({ onChange, filledValues, ...props }) {
         label={option}
         value={option.toString()}
         disabled={filteredValues.includes(option)}
-        onChange={(e) => onChange(toNumber(e.target.value))}
+        onChange={(e) => setNumberSelected(toNumber(e.target.value))}
       />
     ));
 

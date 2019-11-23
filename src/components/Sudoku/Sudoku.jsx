@@ -1,5 +1,4 @@
 import React, { useEffect, useContext } from 'react';
-import PropTypes from 'prop-types';
 import { Pane, majorScale } from 'evergreen-ui';
 
 import SudokuCell from './SudokuCell';
@@ -11,8 +10,8 @@ import { SudokuContext } from '../../contexts/SudokuContext';
  *
  * @returns {React.ReactElement} Sudoku
  */
-function Sudoku({ numberSelected }) {
-  const { sudoku, action } = useContext(SudokuContext);
+function Sudoku() {
+  const { sudoku, action, numberSelected } = useContext(SudokuContext);
   const solvedSudoku = bruteForce(sudoku);
 
   useEffect(() => {
@@ -45,9 +44,5 @@ function Sudoku({ numberSelected }) {
     </Pane>
   );
 }
-
-Sudoku.propTypes = {
-  numberSelected: PropTypes.number.isRequired,
-};
 
 export default Sudoku;

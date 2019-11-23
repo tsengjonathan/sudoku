@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Pane, majorScale } from 'evergreen-ui';
 
 import Sudoku from '../Sudoku';
@@ -11,13 +11,11 @@ import { SudokuContextProvider } from '../../contexts/SudokuContext';
  * @returns {React.ReactElement} Game
  */
 function Game() {
-  const [numberSelected, setNumberSelected] = useState(0);
-
   return (
     <Pane display="flex">
       <SudokuContextProvider>
-        <Sudoku numberSelected={numberSelected} />
-        <NumberSelector onChange={setNumberSelected} marginLeft={majorScale(1)} />
+        <Sudoku />
+        <NumberSelector marginLeft={majorScale(1)} />
       </SudokuContextProvider>
     </Pane>
   );
