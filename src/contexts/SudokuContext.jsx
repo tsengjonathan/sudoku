@@ -15,7 +15,8 @@ function reducer(state, action) {
     case 'assign': {
       const { rowIdx, colIdx, val } = action;
       const newSudoku = state.slice();
-      newSudoku[rowIdx][colIdx] = val;
+      const cell = newSudoku[rowIdx][colIdx];
+      cell.value = val;
       return newSudoku;
     }
     case 'randomize':
@@ -36,7 +37,7 @@ const SudokuContext = createContext();
  * @returns {React.ReactElement} children components wrapped in a context provider
  */
 function SudokuContextProvider({ children }) {
-  const [sudoku, action] = useReducer(reducer, empty.rows);
+  const [sudoku, action] = useReducer(reducer, random());
 
   return (
     <SudokuContext.Provider value={{ sudoku, action }}>

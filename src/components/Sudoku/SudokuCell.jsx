@@ -29,7 +29,7 @@ function getBorders(rowIdx, colIdx) {
  * @returns {React.ReactElement} SudokuCell
  */
 function SudokuCell({
-  value, onClick, rowIdx, colIdx,
+  value, onClick, rowIdx, colIdx, fixed,
 }) {
   if (typeof value !== 'number') {
     toaster.warning(`Invalid type passed to SudokuCell: expected number, got ${typeof value}`);
@@ -49,13 +49,19 @@ function SudokuCell({
       display="flex"
       alignItems="center"
       justifyContent="center"
-      onClick={onClick}
+      onClick={fixed ? null : onClick}
       borderTop={borderTop}
       borderRight={borderRight}
       borderBottom={borderBottom}
       borderLeft={borderLeft}
     >
-      <Code appearance="minimal" className="noselect">{display}</Code>
+      <Code
+        appearance="minimal"
+        className="noselect"
+        fontWeight={fixed ? 800 : null}
+      >
+        {display}
+      </Code>
     </Pane>
   );
 }
@@ -65,6 +71,7 @@ SudokuCell.propTypes = {
   onClick: PropTypes.func.isRequired,
   rowIdx: PropTypes.number.isRequired,
   colIdx: PropTypes.number.isRequired,
+  fixed: PropTypes.bool.isRequired,
 };
 
 export default SudokuCell;

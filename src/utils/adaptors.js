@@ -53,7 +53,21 @@ function rowsToBlocks(sudoku) {
   return blocks;
 }
 
+/**
+ * Prepares the Sudoku by iterating through each cell and wrapping each cell into an object.
+ *
+ * @param {Array.<Array.<number>>} sudoku raw sudoku to convert
+ * @returns {Array.<Array.<object>>} wrapped sudoku where each cell is an object
+ */
+function prepareSudoku(sudoku) {
+  return sudoku.map((row) => row.map((value) => ({
+    value,
+    fixed: value !== 0,
+  })));
+}
+
 export {
   rowsToColumns,
   rowsToBlocks,
+  prepareSudoku,
 };

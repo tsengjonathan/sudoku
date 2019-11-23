@@ -13,11 +13,7 @@ import { SudokuContext } from '../../contexts/SudokuContext';
  */
 function Sudoku({ numberSelected }) {
   const { sudoku, action } = useContext(SudokuContext);
-  const [solvedSudoku, setSolvedSudoku] = useState(sudoku);
-
-  useEffect(() => {
-    setSolvedSudoku(bruteForce(sudoku, true));
-  }, []);
+  const solvedSudoku = bruteForce(sudoku);
 
   useEffect(() => {
     console.debug('Solved sudoku', solvedSudoku);
@@ -26,16 +22,23 @@ function Sudoku({ numberSelected }) {
   return (
     <Pane display="inline-flex" flexWrap="wrap" width={majorScale(4) * 9}>
       {
-        sudoku.map((row, rowIdx) => row.map((cell, colIdx) => (
-          <SudokuCell
-            value={cell}
-            rowIdx={rowIdx}
-            colIdx={colIdx}
-            onClick={() => action({
-              type: 'assign', rowIdx, colIdx, val: numberSelected,
-            })}
-          />
-        )))
+        sudoku.map((row, rowIdx) => row.map((cell, colIdx) => {
+          const { value, fixed } = cell;
+          return (
+            <SudokuCell
+              value={value}
+              rowIdx={rowIdx}
+              colIdx={colIdx}
+              fixed={fixed}
+              onClick={() => action({
+                type: 'assign',
+                rowIdx,
+                colIdx,
+                val: numberSelected,
+              })}
+            />
+          );
+        }))
       }
     </Pane>
   );
