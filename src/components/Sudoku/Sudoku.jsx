@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Pane, majorScale } from 'evergreen-ui';
 
 import SudokuCell from './SudokuCell';
 import bruteForce from '../../solvers/bruteForce';
-import exampleSudoku from '../../puzzles/11-03-2019';
-
-const templateSudoku = exampleSudoku.rows;
+import { SudokuContext } from '../../contexts/SudokuContext';
 
 /**
  * Sudoku component containing all of the Sudoku logic
@@ -14,28 +12,16 @@ const templateSudoku = exampleSudoku.rows;
  * @returns {React.ReactElement} Sudoku
  */
 function Sudoku({ numberSelected }) {
-  const [sudoku, setSudoku] = useState([]);
-  const [solvedSudoku, setSolvedSudoku] = useState([]);
+  const { sudoku, action } = useContext(SudokuContext);
+  const [solvedSudoku, setSolvedSudoku] = useState(sudoku);
 
   useEffect(() => {
-    setSudoku(templateSudoku);
-    setSolvedSudoku(bruteForce(templateSudoku, true));
+    setSolvedSudoku(bruteForce(sudoku, true));
   }, []);
 
   useEffect(() => {
     console.debug('Solved sudoku', solvedSudoku);
   }, [solvedSudoku]);
-
-  /**
-   * @param {number} rowIdx row index of the sudoku cell to change
-   * @param {number} colIdx column index of the sudoku cell to change
-   * @param {number} val value [0, 9] to change to
-   */
-  function setCell(rowIdx, colIdx, val) {
-    const newSudoku = sudoku.slice();
-    newSudoku[rowIdx][colIdx] = val;
-    setSudoku(newSudoku);
-  }
 
   return (
     <Pane display="inline-flex" flexWrap="wrap" width={majorScale(4) * 9}>
@@ -45,7 +31,9 @@ function Sudoku({ numberSelected }) {
             value={cell}
             rowIdx={rowIdx}
             colIdx={colIdx}
-            onClick={() => setCell(rowIdx, colIdx, numberSelected)}
+            onClick={() => action({
+              type: 'assign', rowIdx, colIdx, val: numberSelected,
+            })}
           />
         )))
       }
