@@ -1,20 +1,15 @@
-import { rowsToColumns, rowsToBlocks } from '../utils/adaptors';
+import { prepareSudoku } from '../utils/adaptors';
 
-const sudoku = {
-  rows: [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  ],
-};
+const sudoku = [
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+];
 
-sudoku.columns = rowsToColumns(sudoku.rows);
-sudoku.blocks = rowsToBlocks(sudoku.rows);
-
-export default sudoku;
+export default prepareSudoku(sudoku);
