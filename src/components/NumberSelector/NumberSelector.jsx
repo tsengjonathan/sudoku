@@ -21,7 +21,7 @@ function toNumber(value) {
  * @param {Function} onChange handle triggers when user selects a different number
  * @returns {React.ReactElement} NumberSelector component
  */
-function NumberSelector({ onChange, filledValues, ...props }) {
+function NumberSelector({ filledValues, ...props }) {
   const {
     margin, marginTop, marginRight, marginBottom, marginLeft,
   } = props;
@@ -56,7 +56,6 @@ function NumberSelector({ onChange, filledValues, ...props }) {
 }
 
 NumberSelector.propTypes = {
-  onChange: PropTypes.func.isRequired,
   filledValues: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.number),
     PropTypes.arrayOf(PropTypes.string),

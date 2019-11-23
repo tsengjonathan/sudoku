@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 import { getRowFromIndex, getColumnFromIndex, getBlockFromIndex } from '../extractors';
 import sudoku from '../../puzzles/11-03-2019';
 
