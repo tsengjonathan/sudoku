@@ -47,19 +47,20 @@ function bruteForce(inputSudoku) {
     const rowIdx = Math.floor(index / 9);
     const colIdx = index % 9;
 
-    const initialVal = sudoku[rowIdx][colIdx];
+    const cell = sudoku[rowIdx][colIdx];
+    const initialVal = sudoku[rowIdx][colIdx].value;
 
-    if (initialVal === 0 || visited.includes(index)) {
+    if (!cell.fixed) {
       const inputNum = getSmallestInputNum(rowIdx, colIdx, sudoku, initialVal);
 
       if (inputNum !== 0) {
-        sudoku[rowIdx][colIdx] = inputNum;
+        cell.value = inputNum;
         if (!visited.includes(index)) {
           visited.push(index);
         }
         index += 1;
-      } else if (initialVal === sudoku[rowIdx][colIdx]) {
-        sudoku[rowIdx][colIdx] = 0;
+      } else if (initialVal === cell.value) {
+        cell.value = 0;
         if (visited.includes(index)) {
           index = visited[visited.indexOf(index) - 1];
         } else {

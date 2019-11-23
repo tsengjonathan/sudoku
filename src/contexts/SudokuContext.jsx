@@ -2,6 +2,7 @@ import React, { createContext, useReducer, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { empty, random } from '../puzzles';
+import bruteForce from '../solvers/bruteForce';
 
 /**
  * Reducer function to handle Sudoku logic
@@ -39,6 +40,8 @@ const SudokuContext = createContext();
 function SudokuContextProvider({ children }) {
   const [sudoku, action] = useReducer(reducer, random());
   const [numberSelected, setNumberSelected] = useState(0);
+
+  console.debug('Solved Sudoku', bruteForce(sudoku));
 
   return (
     <SudokuContext.Provider value={{

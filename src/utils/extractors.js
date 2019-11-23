@@ -78,8 +78,9 @@ function getStakeholdersFromIndex(rowIdx, colIdx, sudoku) {
   const row = getRowFromIndex(rowIdx, colIdx, sudoku);
   const column = getColumnFromIndex(rowIdx, colIdx, sudoku);
   const block = getBlockFromIndex(rowIdx, colIdx, sudoku);
+  const stakeholders = row.concat(column).concat(block);
 
-  return row.concat(column).concat(block);
+  return stakeholders.map((stakeholder) => stakeholder.value);
 }
 
 
