@@ -24,8 +24,10 @@ function Sudoku({ numberSelected }) {
       {
         sudoku.map((row, rowIdx) => row.map((cell, colIdx) => {
           const { value, fixed } = cell;
+          const idx = rowIdx * 9 + colIdx;
           return (
             <SudokuCell
+              key={idx}
               value={value}
               rowIdx={rowIdx}
               colIdx={colIdx}

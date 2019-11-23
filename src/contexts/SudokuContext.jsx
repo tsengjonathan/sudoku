@@ -48,7 +48,7 @@ function SudokuContextProvider({ children }) {
 
 SudokuContextProvider.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
-  children: PropTypes.object.isRequired,
+  children: PropTypes.array.isRequired,
 };
 
 export {
