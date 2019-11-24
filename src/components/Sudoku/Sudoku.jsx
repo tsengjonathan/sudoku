@@ -1,8 +1,7 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Pane, majorScale } from 'evergreen-ui';
 
 import SudokuCell from './SudokuCell';
-import bruteForce from '../../solvers/bruteForce';
 import { SudokuContext } from '../../contexts/SudokuContext';
 
 /**
@@ -12,11 +11,6 @@ import { SudokuContext } from '../../contexts/SudokuContext';
  */
 function Sudoku() {
   const { sudoku, action, numberSelected } = useContext(SudokuContext);
-  const solvedSudoku = bruteForce(sudoku);
-
-  useEffect(() => {
-    console.debug('Solved sudoku', solvedSudoku);
-  }, [solvedSudoku]);
 
   return (
     <Pane display="inline-flex" flexWrap="wrap" width={majorScale(4) * 9}>

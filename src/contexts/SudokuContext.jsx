@@ -2,6 +2,9 @@ import React, { createContext, useReducer, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { empty, random } from '../puzzles';
+import bruteForce from '../solvers/bruteForce';
+
+const randomSudoku = random();
 
 /**
  * Reducer function to handle Sudoku logic
@@ -19,10 +22,16 @@ function reducer(state, action) {
       cell.value = val;
       return newSudoku;
     }
+    case 'solve':
+      return bruteForce(state);
     case 'randomize':
       return random();
-    case 'reset':
+    case 'generate':
+      return bruteForce(empty);
+    case 'empty':
       return empty;
+    case 'reset':
+      return randomSudoku;
     default:
       return state;
   }
@@ -37,8 +46,10 @@ const SudokuContext = createContext();
  * @returns {React.ReactElement} children components wrapped in a context provider
  */
 function SudokuContextProvider({ children }) {
-  const [sudoku, action] = useReducer(reducer, random());
+  const [sudoku, action] = useReducer(reducer, randomSudoku);
   const [numberSelected, setNumberSelected] = useState(0);
+
+  // console.debug('Solved Sudoku', bruteForce(sudoku));
 
   return (
     <SudokuContext.Provider value={{

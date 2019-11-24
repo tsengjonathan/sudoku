@@ -3,27 +3,44 @@ import _ from 'lodash';
 import { getStakeholdersFromIndex } from '../utils/extractors';
 
 /**
- * Given the position of the cell, determine what the next smallest valid value should be.
+ * Given the position of the cell, find another valid input that isn't used before.
  * If no valid values are found, then return 0.
- *
- * `initialVal` is needed because our solver may need to backtrack and we don't want to
- * retry the same numbers again.
  *
  * @param {number} rowIdx zero-based row index of the cell
  * @param {number} colIdx zero-based column index of the cell
  * @param {Array.<Array.<number>>} sudoku row representation of the sudoku
- * @param {number} initialVal initial value to start checking
- * @returns {number} smallest valid input number for the given cell, otherwise 0
+ * @param {object} retries a map of each cell's attempted numbers
+ * @returns {number} random valid input number for the given cell, otherwise 0
  */
-function getSmallestInputNum(rowIdx, colIdx, sudoku, initialVal) {
-  const usedNumbers = _.uniq(getStakeholdersFromIndex(rowIdx, colIdx, sudoku)).sort();
-  const availableInputs = _.range(initialVal + 1, 10);
-  _.pullAll(availableInputs, usedNumbers);
+function getInputNum(rowIdx, colIdx, sudoku, retries) {
+  const index = rowIdx * 9 + colIdx;
+  const usedNumbers = _.uniq(getStakeholdersFromIndex(rowIdx, colIdx, sudoku));
+  const triedNumbers = retries[index];
+  const invalidNumbers = _.union(usedNumbers, triedNumbers).sort();
+  const validNumbers = _.shuffle(_.difference(_.range(1, 10), invalidNumbers));
 
-  if (availableInputs.length === 0) {
+  if (validNumbers.length === 0) {
+    const retry = retries[index];
+    while (retry.length) {
+      retry.pop();
+    }
     return 0;
   }
-  return availableInputs[0];
+  retries[index].push(validNumbers[0]);
+  return validNumbers[0];
+}
+
+/**
+ * Initialize the `retries` object mapping to keep track of attempted numbers.
+ *
+ * @returns {object} keys [0, 81] with empty array values
+ */
+function initializeRetries() {
+  const retries = {};
+  for (let i = 0; i < 81; i += 1) {
+    retries[i] = [];
+  }
+  return retries;
 }
 
 /**
@@ -42,24 +59,26 @@ function bruteForce(inputSudoku) {
   const sudoku = _.cloneDeep(inputSudoku);
   let index = 0;
   const visited = [];
+  const retries = initializeRetries();
 
   while (index < 81) {
     const rowIdx = Math.floor(index / 9);
     const colIdx = index % 9;
 
-    const initialVal = sudoku[rowIdx][colIdx];
+    const cell = sudoku[rowIdx][colIdx];
+    const initialVal = sudoku[rowIdx][colIdx].value;
 
-    if (initialVal === 0 || visited.includes(index)) {
-      const inputNum = getSmallestInputNum(rowIdx, colIdx, sudoku, initialVal);
+    if (!cell.fixed) {
+      const inputNum = getInputNum(rowIdx, colIdx, sudoku, retries);
 
       if (inputNum !== 0) {
-        sudoku[rowIdx][colIdx] = inputNum;
+        cell.value = inputNum;
         if (!visited.includes(index)) {
           visited.push(index);
         }
         index += 1;
-      } else if (initialVal === sudoku[rowIdx][colIdx]) {
-        sudoku[rowIdx][colIdx] = 0;
+      } else if (initialVal === cell.value) {
+        cell.value = 0;
         if (visited.includes(index)) {
           index = visited[visited.indexOf(index) - 1];
         } else {
