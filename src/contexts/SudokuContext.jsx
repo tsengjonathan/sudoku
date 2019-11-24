@@ -38,10 +38,10 @@ const SudokuContext = createContext();
  * @returns {React.ReactElement} children components wrapped in a context provider
  */
 function SudokuContextProvider({ children }) {
-  const [sudoku, action] = useReducer(reducer, random());
+  const [sudoku, action] = useReducer(reducer, bruteForce(empty));
   const [numberSelected, setNumberSelected] = useState(0);
 
-  console.debug('Solved Sudoku', bruteForce(sudoku));
+  // console.debug('Solved Sudoku', bruteForce(sudoku));
 
   return (
     <SudokuContext.Provider value={{
