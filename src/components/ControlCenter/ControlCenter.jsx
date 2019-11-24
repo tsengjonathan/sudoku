@@ -1,8 +1,8 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, Button, majorScale } from 'evergreen-ui';
+import { Card } from 'evergreen-ui';
 
-import { SudokuContext } from '../../contexts/SudokuContext';
+import ControlButton from './ControlButton';
 
 /**
  * Control center to hold functions such as solve or reset.
@@ -14,8 +14,6 @@ function ControlCenter({ ...props }) {
     margin, marginTop, marginRight, marginBottom, marginLeft,
   } = props;
 
-  const { action } = useContext(SudokuContext);
-
   return (
     <Card
       margin={margin}
@@ -26,23 +24,9 @@ function ControlCenter({ ...props }) {
       display="flex"
       flexDirection="column"
     >
-      <Button
-        onClick={() => action({ type: 'solve' })}
-        marginBottom={majorScale(1)}
-      >
-        Solve
-      </Button>
-      <Button
-        onClick={() => action({ type: 'reset' })}
-        marginBottom={majorScale(1)}
-      >
-        Reset
-      </Button>
-      <Button
-        onClick={() => action({ type: 'generate' })}
-      >
-        Generate
-      </Button>
+      <ControlButton title="Solve" dispatchType="solve" spaceBelow />
+      <ControlButton title="Reset" dispatchType="reset" spaceBelow />
+      <ControlButton title="Generate" dispatchType="generate" spaceBelow />
     </Card>
   );
 }
