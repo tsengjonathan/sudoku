@@ -1,8 +1,11 @@
 import React, { createContext, useReducer, useState } from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
+import { toaster } from 'evergreen-ui';
 
 import { empty, random } from '../puzzles';
 import bruteForce from '../solvers/bruteForce';
+import { getStakeholdersFromIndex } from '../utils/extractors';
 
 const randomSudoku = random();
 
@@ -17,10 +20,16 @@ function reducer(state, action) {
   switch (action.type) {
     case 'assign': {
       const { rowIdx, colIdx, val } = action;
-      const newSudoku = state.slice();
-      const cell = newSudoku[rowIdx][colIdx];
-      cell.value = val;
-      return newSudoku;
+      const stakeholders = getStakeholdersFromIndex(rowIdx, colIdx, state, false);
+
+      if (stakeholders.every((stakeholder) => stakeholder.value !== val)) {
+        const newSudoku = state.slice();
+        const cell = newSudoku[rowIdx][colIdx];
+        cell.value = val;
+        return newSudoku;
+      }
+      toaster.warning('Cannot set value to cell');
+      return state;
     }
     case 'solve':
       return bruteForce(state);
@@ -46,7 +55,7 @@ const SudokuContext = createContext();
  * @returns {React.ReactElement} children components wrapped in a context provider
  */
 function SudokuContextProvider({ children }) {
-  const [sudoku, action] = useReducer(reducer, randomSudoku);
+  const [sudoku, action] = useReducer(reducer, _.cloneDeep(randomSudoku));
   const [numberSelected, setNumberSelected] = useState(0);
 
   // console.debug('Solved Sudoku', bruteForce(sudoku));

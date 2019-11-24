@@ -72,15 +72,19 @@ function getBlockFromIndex(rowIdx, colIdx, sudoku) {
  * @param {number} rowIdx zero-based row index of the cell
  * @param {number} colIdx zero-based column index of the cell
  * @param {Array.<Array.<number>>} sudoku row representation of the sudoku
- * @returns {Array.<number>} concatenated array of the cell's stakeholders
+ * @param {boolean} valueOnly whether to return the value only
+ * @returns {Array.<number>|Array.<object>} concatenated array of the cell's stakeholders
  */
-function getStakeholdersFromIndex(rowIdx, colIdx, sudoku) {
+function getStakeholdersFromIndex(rowIdx, colIdx, sudoku, valueOnly) {
   const row = getRowFromIndex(rowIdx, colIdx, sudoku);
   const column = getColumnFromIndex(rowIdx, colIdx, sudoku);
   const block = getBlockFromIndex(rowIdx, colIdx, sudoku);
   const stakeholders = row.concat(column).concat(block);
 
-  return stakeholders.map((stakeholder) => stakeholder.value);
+  if (valueOnly) {
+    return stakeholders.map((stakeholder) => stakeholder.value);
+  }
+  return stakeholders;
 }
 
 

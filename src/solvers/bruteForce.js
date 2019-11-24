@@ -14,7 +14,7 @@ import { getStakeholdersFromIndex } from '../utils/extractors';
  */
 function getInputNum(rowIdx, colIdx, sudoku, retries) {
   const index = rowIdx * 9 + colIdx;
-  const usedNumbers = _.uniq(getStakeholdersFromIndex(rowIdx, colIdx, sudoku));
+  const usedNumbers = _.uniq(getStakeholdersFromIndex(rowIdx, colIdx, sudoku, true));
   const triedNumbers = retries[index];
   const invalidNumbers = _.union(usedNumbers, triedNumbers).sort();
   const validNumbers = _.shuffle(_.difference(_.range(1, 10), invalidNumbers));
