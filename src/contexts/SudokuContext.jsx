@@ -26,6 +26,8 @@ function reducer(state, action) {
       return bruteForce(state);
     case 'randomize':
       return random();
+    case 'generate':
+      return bruteForce(empty);
     case 'empty':
       return empty;
     case 'reset':

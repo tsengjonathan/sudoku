@@ -32,7 +32,17 @@ function ControlCenter({ ...props }) {
       >
         Solve
       </Button>
-      <Button onClick={() => action({ type: 'reset' })}>Reset</Button>
+      <Button
+        onClick={() => action({ type: 'reset' })}
+        marginBottom={majorScale(1)}
+      >
+        Reset
+      </Button>
+      <Button
+        onClick={() => action({ type: 'generate' })}
+      >
+        Generate
+      </Button>
     </Card>
   );
 }
