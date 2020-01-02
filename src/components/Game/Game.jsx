@@ -3,7 +3,6 @@ import { Pane, majorScale } from 'evergreen-ui';
 
 import Sudoku from '../Sudoku';
 import NumberSelector from '../NumberSelector';
-import ControlCenter from '../ControlCenter';
 import { SudokuContextProvider } from '../../contexts/SudokuContext';
 
 /**
@@ -15,7 +14,6 @@ function Game() {
   return (
     <Pane display="flex">
       <SudokuContextProvider>
-        <ControlCenter marginRight={majorScale(1)} />
         <Sudoku />
         <NumberSelector marginLeft={majorScale(1)} />
       </SudokuContextProvider>
